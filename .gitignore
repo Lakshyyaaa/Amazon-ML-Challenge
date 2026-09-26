@@ -1,0 +1,24 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# macOS artifacts
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Huge raw datasets & 4GB intermediate files (reproducible via scripts)
+dataset/
+output/transformer_training_pairs.tsv
+models/features_15m.npy
+models/labels_15m.npy
+
+# Virtual environment
+venv/
+.env/
+env/

@@ -1,0 +1,26 @@
+{
+  "training_pairs": 15399977,
+  "train_samples": 13089980,
+  "val_samples": 2309997,
+  "optimal_threshold": 0.78,
+  "val_precision": 0.9851,
+  "val_recall": 0.9377,
+  "val_f05": 0.9753,
+  "val_f1": 0.9608,
+  "lgb_auc": 0.9959,
+  "xgb_auc": 0.9957,
+  "ensemble_auc": 0.9958,
+  "lgb_train_time_sec": 39.49,
+  "xgb_train_time_sec": 61.43,
+  "features": [
+    "name_ratio",
+    "name_token_sort",
+    "name_token_set",
+    "name_len_diff",
+    "addr_ratio",
+    "addr_token_set",
+    "num_match",
+    "pin_match",
+    "is_s2"
+  ]
+}
