@@ -47,10 +47,13 @@ This folder contains the complete reproducible notebooks, models, scripts, and r
 ## Directory Structure & Artifacts
 
 - **Notebooks**:
-  - `V3_Candidate_Pairs_Generation.ipynb`: 6-route blocking generator creating the 69.3M candidate pairs pool.
+  - `V3_01_Candidate_Pairs_Generation.ipynb`: 6-route blocking generator creating the 69.3M candidate pairs pool.
   - `V3_02_Feature_Extraction.ipynb`: RapidFuzz lexical extraction & 1024-d `multilingual-e5-large-instruct` cosine similarity matrix.
   - `V3_03_Model_Training_And_Reranking.ipynb`: 2M balanced dataset training, 3 regularized boosting models, and BGE reranker fusion.
   - `V3_04_Submission_Inference_Pipeline.ipynb`: Streaming test inference across all 1,732,544 entities, relative selection, and submission validation.
+- **Features (`features/`)**:
+  - `v3_features_sample.parquet`: Annotated DataFrame with lexical and semantic cosine features.
+  - `v3_feature_matrix_sample.npy`: Assembled numerical feature matrix.
 - **Trained Models (`models/`)**:
   - `v3_lightgbm.txt`: Regularized LightGBM booster.
   - `v3_xgboost.json`: Regularized XGBoost booster.
