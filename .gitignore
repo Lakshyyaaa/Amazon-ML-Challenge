@@ -22,3 +22,4 @@ models/labels_15m.npy
 venv/
 .env/
 env/
+catboost_info/

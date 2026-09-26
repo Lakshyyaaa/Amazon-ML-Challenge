@@ -1,0 +1,28 @@
+{
+  "models": [
+    "v3_lightgbm.txt",
+    "v3_xgboost.json",
+    "v3_catboost.cbm"
+  ],
+  "weights": {
+    "lightgbm": 0.35,
+    "xgboost": 0.35,
+    "catboost": 0.3
+  },
+  "reranker": "BAAI/bge-reranker-v2-m3",
+  "reranker_alpha": 0.6,
+  "optimal_threshold": 0.55,
+  "validation_auc": 0.9999999997333333,
+  "features": [
+    "name_fuzz",
+    "name_token_set",
+    "name_token_sort",
+    "name_partial",
+    "name_len_diff",
+    "addr_fuzz",
+    "addr_token_set",
+    "pin_match",
+    "num_match",
+    "is_s2"
+  ]
+}
