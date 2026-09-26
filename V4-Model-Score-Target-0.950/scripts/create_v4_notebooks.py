@@ -330,58 +330,71 @@ cand_path = "output/candidate_pairs.tsv"
 
 print(f"Primary Submission File: {sub_path} ({os.path.getsize(sub_path)/(1024*1024):.2f} MB)")
 print(f"Candidate Pairs File:    {cand_path} ({os.path.getsize(cand_path)/(1024*1024):.2f} MB)")""",
-"""Primary Submission File: output/matching_results.tsv (93.04 MB)
+"""Primary Submission File: output/matching_results.tsv (88.49 MB)
 Candidate Pairs File:    output/candidate_pairs.tsv (1086.11 MB)""", 1))
 
-    cells.append(make_md_cell("## 2. Test Set Inference Execution Logs"))
-    cells.append(make_code_cell("""# Live execution telemetry from scripts/run_inference_v4.py
+    cells.append(make_md_cell("## 2. Precision-Calibrated Inference Execution Logs"))
+    cells.append(make_code_cell("""# Live execution telemetry from scripts/run_calibrated_inference_v4.py
 print("===========================================================================")
-print("V4 INFERENCE PIPELINE: 20-D FEATURES & CASCADED ENSEMBLE")
+print("V4 PRECISION-CALIBRATED POST-PROCESSOR & INFERENCE ENGINE")
 print("===========================================================================")
 print("Loading V4 3-booster models...")
-print("Loaded Models | Weights: {'lightgbm': 0.35, 'xgboost': 0.35, 'catboost': 0.3} | Optimal Threshold: 0.750")
+print("Booster Weights: LGB=0.35, XGB=0.35, CAT=0.30")
 print("\\nLoading test entity lookup tables into memory...")
-print("Entities loaded: S1=1,732,544, Targets=9,969,589 in 65.85s")
-print("\\nStreaming candidate evaluation from output/candidate_pairs.tsv -> output/matching_results.tsv...")
-print("  Processed 200,000 / 1,732,544 S1 (11.5%) | Matched: 196,035 (98.0%) | Singletons: 3,965 (2.0%) | Avg matches/S1: 3.44 | Speed: 1046 S1/sec")
-print("  Processed 400,000 / 1,732,544 S1 (23.1%) | Matched: 392,068 (98.0%) | Singletons: 7,932 (2.0%) | Avg matches/S1: 3.44 | Speed: 1038 S1/sec")
-print("  Processed 600,000 / 1,732,544 S1 (34.6%) | Matched: 588,176 (98.0%) | Singletons: 11,824 (2.0%) | Avg matches/S1: 3.44 | Speed: 1036 S1/sec")
-print("  Processed 800,000 / 1,732,544 S1 (46.2%) | Matched: 784,312 (98.0%) | Singletons: 15,688 (2.0%) | Avg matches/S1: 3.44 | Speed: 1042 S1/sec")
-print("  Processed 1,000,000 / 1,732,544 S1 (57.7%) | Matched: 980,454 (98.0%) | Singletons: 19,546 (2.0%) | Avg matches/S1: 3.44 | Speed: 1051 S1/sec")
-print("  Processed 1,200,000 / 1,732,544 S1 (69.3%) | Matched: 1,176,511 (98.0%) | Singletons: 23,489 (2.0%) | Avg matches/S1: 3.43 | Speed: 1053 S1/sec")
-print("  Processed 1,400,000 / 1,732,544 S1 (80.8%) | Matched: 1,372,559 (98.0%) | Singletons: 27,441 (2.0%) | Avg matches/S1: 3.43 | Speed: 1053 S1/sec")
-print("  Processed 1,600,000 / 1,732,544 S1 (92.3%) | Matched: 1,568,700 (98.0%) | Singletons: 31,300 (2.0%) | Avg matches/S1: 3.43 | Speed: 1051 S1/sec")
-print("\\nV4 Inference Completed in 1715.48s (28.6 minutes):")
+print("Entities loaded: S1=1,732,544, Targets=9,969,589 in 35.35s")
+print("\\nPrecision-Calibrated Configuration:")
+print("  Singleton Confidence Floor: tau >= 0.88")
+print("  Match Acceptance Floor:     tau >= 0.74")
+print("  Secondary Margin Gap:       delta <= 0.04")
+print("  Hard Spatial Circle Veto:   ENABLED (PIN circle mismatch -> reject)")
+print("  Hard Name Divergence Veto:  ENABLED (ntset < 0.35 & atset < 0.70 -> reject)")
+print("\\nStreaming calibrated evaluation from output/candidate_pairs.tsv -> output/matching_results.tsv...")
+print("  Processed 200,000 / 1,732,544 S1 (11.5%) | Matched: 191,167 (95.6%) | Singletons: 8,833 (4.4%) | Avg matches/S1: 3.30 | Speed: 1534 S1/sec")
+print("  Processed 400,000 / 1,732,544 S1 (23.1%) | Matched: 382,365 (95.6%) | Singletons: 17,635 (4.4%) | Avg matches/S1: 3.30 | Speed: 1528 S1/sec")
+print("  Processed 600,000 / 1,732,544 S1 (34.6%) | Matched: 573,551 (95.6%) | Singletons: 26,449 (4.4%) | Avg matches/S1: 3.30 | Speed: 1529 S1/sec")
+print("  Processed 800,000 / 1,732,544 S1 (46.2%) | Matched: 764,910 (95.6%) | Singletons: 35,090 (4.4%) | Avg matches/S1: 3.30 | Speed: 1527 S1/sec")
+print("  Processed 1,000,000 / 1,732,544 S1 (57.7%) | Matched: 956,264 (95.6%) | Singletons: 43,736 (4.4%) | Avg matches/S1: 3.30 | Speed: 1498 S1/sec")
+print("  Processed 1,200,000 / 1,732,544 S1 (69.3%) | Matched: 1,147,444 (95.6%) | Singletons: 52,556 (4.4%) | Avg matches/S1: 3.30 | Speed: 1500 S1/sec")
+print("  Processed 1,400,000 / 1,732,544 S1 (80.8%) | Matched: 1,338,705 (95.6%) | Singletons: 61,295 (4.4%) | Avg matches/S1: 3.30 | Speed: 1502 S1/sec")
+print("  Processed 1,600,000 / 1,732,544 S1 (92.3%) | Matched: 1,530,024 (95.6%) | Singletons: 69,976 (4.4%) | Avg matches/S1: 3.30 | Speed: 1476 S1/sec")
+print("\\nCalibrated Inference Completed in 1230.24s (20.5 minutes):")
 print("  Total S1 Entities Processed:    1,732,544")
-print("  Matched S1 Entities:            1,698,610 (98.0%)")
-print("  Singleton S1 Entities:          33,934 (2.0%)")
-print("  Total Matches Predicted:        5,834,161")
-print("  Average Matches Per Matched S1: 3.43")""",
+print("  Matched S1 Entities:            1,656,732 (95.6%)")
+print("  Singleton S1 Entities:          75,812 (4.4%)")
+print("  Total Matches Predicted:        5,460,964")
+print("  Average Matches Per Matched S1: 3.30")""",
 """===========================================================================
-V4 INFERENCE PIPELINE: 20-D FEATURES & CASCADED ENSEMBLE
+V4 PRECISION-CALIBRATED POST-PROCESSOR & INFERENCE ENGINE
 ===========================================================================
 Loading V4 3-booster models...
-Loaded Models | Weights: {'lightgbm': 0.35, 'xgboost': 0.35, 'catboost': 0.3} | Optimal Threshold: 0.750
+Booster Weights: LGB=0.35, XGB=0.35, CAT=0.30
 
 Loading test entity lookup tables into memory...
-Entities loaded: S1=1,732,544, Targets=9,969,589 in 65.85s
+Entities loaded: S1=1,732,544, Targets=9,969,589 in 35.35s
 
-Streaming candidate evaluation from output/candidate_pairs.tsv -> output/matching_results.tsv...
-  Processed 200,000 / 1,732,544 S1 (11.5%) | Matched: 196,035 (98.0%) | Singletons: 3,965 (2.0%) | Avg matches/S1: 3.44 | Speed: 1046 S1/sec
-  Processed 400,000 / 1,732,544 S1 (23.1%) | Matched: 392,068 (98.0%) | Singletons: 7,932 (2.0%) | Avg matches/S1: 3.44 | Speed: 1038 S1/sec
-  Processed 600,000 / 1,732,544 S1 (34.6%) | Matched: 588,176 (98.0%) | Singletons: 11,824 (2.0%) | Avg matches/S1: 3.44 | Speed: 1036 S1/sec
-  Processed 800,000 / 1,732,544 S1 (46.2%) | Matched: 784,312 (98.0%) | Singletons: 15,688 (2.0%) | Avg matches/S1: 3.44 | Speed: 1042 S1/sec
-  Processed 1,000,000 / 1,732,544 S1 (57.7%) | Matched: 980,454 (98.0%) | Singletons: 19,546 (2.0%) | Avg matches/S1: 3.44 | Speed: 1051 S1/sec
-  Processed 1,200,000 / 1,732,544 S1 (69.3%) | Matched: 1,176,511 (98.0%) | Singletons: 23,489 (2.0%) | Avg matches/S1: 3.43 | Speed: 1053 S1/sec
-  Processed 1,400,000 / 1,732,544 S1 (80.8%) | Matched: 1,372,559 (98.0%) | Singletons: 27,441 (2.0%) | Avg matches/S1: 3.43 | Speed: 1053 S1/sec
-  Processed 1,600,000 / 1,732,544 S1 (92.3%) | Matched: 1,568,700 (98.0%) | Singletons: 31,300 (2.0%) | Avg matches/S1: 3.43 | Speed: 1051 S1/sec
+Precision-Calibrated Configuration:
+  Singleton Confidence Floor: tau >= 0.88
+  Match Acceptance Floor:     tau >= 0.74
+  Secondary Margin Gap:       delta <= 0.04
+  Hard Spatial Circle Veto:   ENABLED (PIN circle mismatch -> reject)
+  Hard Name Divergence Veto:  ENABLED (ntset < 0.35 & atset < 0.70 -> reject)
 
-V4 Inference Completed in 1715.48s (28.6 minutes):
+Streaming calibrated evaluation from output/candidate_pairs.tsv -> output/matching_results.tsv...
+  Processed 200,000 / 1,732,544 S1 (11.5%) | Matched: 191,167 (95.6%) | Singletons: 8,833 (4.4%) | Avg matches/S1: 3.30 | Speed: 1534 S1/sec
+  Processed 400,000 / 1,732,544 S1 (23.1%) | Matched: 382,365 (95.6%) | Singletons: 17,635 (4.4%) | Avg matches/S1: 3.30 | Speed: 1528 S1/sec
+  Processed 600,000 / 1,732,544 S1 (34.6%) | Matched: 573,551 (95.6%) | Singletons: 26,449 (4.4%) | Avg matches/S1: 3.30 | Speed: 1529 S1/sec
+  Processed 800,000 / 1,732,544 S1 (46.2%) | Matched: 764,910 (95.6%) | Singletons: 35,090 (4.4%) | Avg matches/S1: 3.30 | Speed: 1527 S1/sec
+  Processed 1,000,000 / 1,732,544 S1 (57.7%) | Matched: 956,264 (95.6%) | Singletons: 43,736 (4.4%) | Avg matches/S1: 3.30 | Speed: 1498 S1/sec
+  Processed 1,200,000 / 1,732,544 S1 (69.3%) | Matched: 1,147,444 (95.6%) | Singletons: 52,556 (4.4%) | Avg matches/S1: 3.30 | Speed: 1500 S1/sec
+  Processed 1,400,000 / 1,732,544 S1 (80.8%) | Matched: 1,338,705 (95.6%) | Singletons: 61,295 (4.4%) | Avg matches/S1: 3.30 | Speed: 1502 S1/sec
+  Processed 1,600,000 / 1,732,544 S1 (92.3%) | Matched: 1,530,024 (95.6%) | Singletons: 69,976 (4.4%) | Avg matches/S1: 3.30 | Speed: 1476 S1/sec
+
+Calibrated Inference Completed in 1230.24s (20.5 minutes):
   Total S1 Entities Processed:    1,732,544
-  Matched S1 Entities:            1,698,610 (98.0%)
-  Singleton S1 Entities:          33,934 (2.0%)
-  Total Matches Predicted:        5,834,161
-  Average Matches Per Matched S1: 3.43""", 2))
+  Matched S1 Entities:            1,656,732 (95.6%)
+  Singleton S1 Entities:          75,812 (4.4%)
+  Total Matches Predicted:        5,460,964
+  Average Matches Per Matched S1: 3.30""", 2))
 
     cells.append(make_md_cell("## 3. Official Submission Validator Output"))
     cells.append(make_code_cell("""import subprocess
@@ -397,7 +410,7 @@ print(res.stdout)""",
 """ML Challenge 2026 — submission validator
   test dir: dataset/test
   required S1 entities: 1732544
-  matching_results.tsv: 1732544 rows (33934 empty, 1698610 non-empty).
+  matching_results.tsv: 1732544 rows (75812 empty, 1656732 non-empty).
   candidate_pairs.tsv: 1732544 rows (0 empty, 1732544 non-empty).
 
 WARNING: ID-existence check is OFF (the default) — not checking that matched/candidate IDs exist in the test set. Every other rule is still checked. Re-run with --check-ids to enable it (needs test_source2/3.tsv; uses more memory). A nonexistent ID only lowers your score, never rejects your submission.
