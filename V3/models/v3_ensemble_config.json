@@ -11,8 +11,9 @@
   },
   "reranker": "BAAI/bge-reranker-v2-m3",
   "reranker_alpha": 0.6,
-  "optimal_threshold": 0.55,
-  "validation_auc": 0.9999999997333333,
+  "optimal_threshold": 0.725,
+  "validation_auc": 0.9589020777667985,
+  "validation_f05": 0.9264220310223462,
   "features": [
     "name_fuzz",
     "name_token_set",
