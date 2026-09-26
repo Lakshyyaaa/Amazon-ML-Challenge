@@ -7,7 +7,7 @@ Streaming test inference with fixes:
 2. Uses models trained on 1,000,000 Ground Truth Positives + 1,000,000 Actual Blocker Hard Negatives.
 3. Realistic Singleton Protection: Entities whose best candidate score < 0.50 are output as singletons (empty matches).
 4. Constrained Multi-Match Selection: Prevents branch flood by enforcing max 3 from S2 and max 3 from S3 with relative margin sc >= max(0.60, best_score - 0.08).
-5. Outputs to output/matching_results.tsv & V3-Model-Score-0.601/results/matching_results_v3.tsv.
+5. Outputs to output/matching_results.tsv & V3-Model-Score-0.742/results/matching_results_v3.tsv.
 6. Validates via utils/validate_submission.py.
 """
 
@@ -37,7 +37,7 @@ def main():
     print("=" * 75)
     t0 = time.time()
 
-    model_dir = 'V3-Model-Score-0.601/models'
+    model_dir = 'V3-Model-Score-0.742/models'
     test_dir = 'dataset/test'
     cand_file = 'output/candidate_pairs.tsv'
     out_file = 'output/matching_results.tsv'
@@ -297,7 +297,7 @@ def main():
     print(f"  Average Matches Per Matched S1: {avg_matches:.2f}")
 
     # Archive copy
-    archive_copy = 'V3-Model-Score-0.601/results/matching_results_v3.tsv'
+    archive_copy = 'V3-Model-Score-0.742/results/matching_results_v3.tsv'
     os.makedirs(os.path.dirname(archive_copy), exist_ok=True)
     shutil.copyfile(out_file, archive_copy)
     print(f"\nSaved primary submission: {out_file} ({os.path.getsize(out_file)/(1024*1024):.2f} MB)")

@@ -9,7 +9,7 @@ build_real_training_data_v3.py
 2. Computes the 10 RapidFuzz lexical & address features in parallel/vectorized C.
 3. Caches to output/v3_features/v3_train_features_2m.npy and v3_train_labels_2m.npy.
 4. Trains the regularized 3-booster ensemble (LightGBM, XGBoost, CatBoost).
-5. Saves models to V3-Model-Score-0.601/models/.
+5. Saves models to V3-Model-Score-0.742/models/.
 """
 
 import os
@@ -271,7 +271,7 @@ def main():
     X_train, X_val, y_train, y_val = train_test_split(X_mat, y_all, test_size=0.15, random_state=42, stratify=y_all)
     print(f"Train split: {len(X_train):,} | Validation split: {len(X_val):,}")
 
-    model_dir = 'V3-Model-Score-0.601/models'
+    model_dir = 'V3-Model-Score-0.742/models'
     os.makedirs(model_dir, exist_ok=True)
 
     # LightGBM
