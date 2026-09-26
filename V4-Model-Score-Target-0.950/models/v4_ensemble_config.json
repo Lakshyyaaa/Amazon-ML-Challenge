@@ -1,0 +1,39 @@
+{
+  "models": [
+    "v4_lightgbm.txt",
+    "v4_xgboost.json",
+    "v4_catboost.cbm"
+  ],
+  "weights": {
+    "lightgbm": 0.35,
+    "xgboost": 0.35,
+    "catboost": 0.3
+  },
+  "optimal_threshold": 0.75,
+  "val_auc": 0.9972789526444444,
+  "val_f05": 0.9774444871117656,
+  "precision": 0.9849695375242316,
+  "recall": 0.94846,
+  "features": [
+    "name_fuzz",
+    "name_token_set",
+    "name_token_sort",
+    "name_partial",
+    "name_len_diff",
+    "soundex_match",
+    "metaphone_match",
+    "translit_ratio",
+    "domain_ratio",
+    "addr_fuzz",
+    "addr_token_set",
+    "num_exact",
+    "num_norm",
+    "pin_match",
+    "street_match",
+    "spatial_alias_flag",
+    "len_ratio",
+    "both_have_pin",
+    "pin_mismatch",
+    "is_s2"
+  ]
+}
