@@ -10,20 +10,9 @@
     "catboost": 0.3
   },
   "reranker": "BAAI/bge-reranker-v2-m3",
-  "reranker_alpha": 0.6,
-  "optimal_threshold": 0.725,
-  "validation_auc": 0.9589020777667985,
-  "validation_f05": 0.9264220310223462,
-  "features": [
-    "name_fuzz",
-    "name_token_set",
-    "name_token_sort",
-    "name_partial",
-    "name_len_diff",
-    "addr_fuzz",
-    "addr_token_set",
-    "pin_match",
-    "num_match",
-    "is_s2"
-  ]
+  "optimal_threshold": 0.825,
+  "real_validation_auc": 0.9995156379999999,
+  "real_validation_f05": 0.993214065311385,
+  "real_precision": 0.994661384011013,
+  "real_recall": 0.9874666666666667
 }
