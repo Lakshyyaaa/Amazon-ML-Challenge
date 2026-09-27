@@ -23,3 +23,6 @@ venv/
 .env/
 env/
 catboost_info/
+
+# V5 intermediate parquet cache (29GB reproducible artifacts)
+V5/cache/
